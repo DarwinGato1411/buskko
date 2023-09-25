@@ -29,6 +29,7 @@ interface Negocios {
 
 export const obtnerEmpresas = async (empresa: empresa) => {
     try {
+        console.log(empresa)
         const respuesta: ApiResponse = await axios.post(`${ruta}/empresas/`, empresa);
 
         if (respuesta.status === 200) {

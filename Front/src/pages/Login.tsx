@@ -4,7 +4,7 @@ import '../styles/Login.scss'
 import { personCircleOutline, keyOutline } from 'ionicons/icons';
 import buskkoLogo from '../assets/img/BUSKKO.png'
 import { Redirect, useHistory } from 'react-router-dom';
-import { loginCliente } from '../api/login'
+import { loginCliente } from '../api/Usuario'
 import Swal from 'sweetalert2';
 
 interface UserCredentials {
