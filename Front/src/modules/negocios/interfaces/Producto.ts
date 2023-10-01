@@ -51,4 +51,5 @@ export interface Producto {
     prodUtilidadDos: number;
     prodUtilidadNormal: number;
     prodUtilidadPreferencial: number;
+    prodServletUrl: string,
 }

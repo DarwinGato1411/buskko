@@ -7,13 +7,16 @@ import { useEffect, useState } from "react";
 
 import Swal from "sweetalert2";
 import { Producto } from "../../interfaces/producto";
-import { consultaProductosPorEmpresas } from "../../../../api/producto";
+import { consultaProductosPorEmpresas } from "../../../../api/Producto";
+import { NavLink } from "react-router-dom";
+
 
 interface EmpresaParams {
     tipoAmbiente: string;
 }
 
 interface empresa {
+
     codTipoambiente: number,
     prodNombre: string
 }
@@ -32,35 +35,11 @@ const ProductosPage: React.FC = () => {
         history.push('/tienda/negocio/carrito');
     }
 
-    const agregarCarrito = (nuevoProducto: Producto) => {
-        setCarrito((carritoAnterior) => {
-            const nuevoCarrito = [...carritoAnterior, nuevoProducto];
-            localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
-            Swal.fire({
-                icon: 'success',
-                title: 'Atención!',
-                text: 'Producto agregado con éxito!',
-                timer: 1000
-            });
-            return nuevoCarrito;
-        });
-    }
-
-    const imprimirCarrito = () => {
-        console.log(carrito)
-
-    }
-
-    const handleAtras = () => {
-        history.goBack(); // Esta función llevará al usuario atrás en la historia de navegación.
-    };
-
-    const actualizarBusqueda = async (valor: any) => {
-        const busquedaNueva: string = valor.detail.value ? valor.detail.value : "";
+    const actualizarBusqueda = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const busquedaNueva: string = e.target.value;
         setBusqueda(busquedaNueva.toUpperCase());
-        obtenerProductosPorEmpresa(busqueda)
+        obtenerProductosPorEmpresa(busquedaNueva.toUpperCase())
     };
-
 
     const obtenerProductosPorEmpresa = async (producto: string | "") => {
         try {
@@ -79,7 +58,27 @@ const ProductosPage: React.FC = () => {
         }
     };
 
+  
+
+    const agregarCarrito = (nuevoProducto: Producto) => {
+        setCarrito((carritoAnterior) => {
+            const nuevoCarrito = [...carritoAnterior, nuevoProducto];
+            localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+            Swal.fire({
+                icon: 'success',
+                title: 'Atención!',
+                text: 'Producto agregado con éxito!',
+                timer: 1000
+            });
+            return nuevoCarrito;
+        });
+    }
+
     useEffect(() => {
+        const carritoExistente: Producto[] = JSON.parse(localStorage.getItem('carrito') || '[]');
+        setCarrito(carritoExistente);
+        console.log(carritoExistente)
+        console.log("hola")
         obtenerProductosPorEmpresa("");
     }, []);
 
@@ -100,47 +99,49 @@ const ProductosPage: React.FC = () => {
             </IonHeader>
             <IonContent className="productosContent">
                 <div className='busqueda'>
+                    <div className='busqueda'>
 
-                    <IonInput
-                        type="text"
-                        placeholder="Nombre del producto"
-                        value={busqueda}
-                        onIonChange={(e) => actualizarBusqueda(e)}
-                    ></IonInput>
-
+                        <input
+                            type="text"
+                            placeholder="Nombre de la empresa"
+                            value={busqueda}
+                            onChange={actualizarBusqueda}
+                        />
+                    </div>
                 </div>
+                <div className='listaProductos'>
+                    {productos.map((producto, index) => (
+                        <IonCard key={index} className="card">
+                            <div className="producto">
+                                <div className="titulo"><span>{producto.prodNombre}</span></div>
+                                <div className="detalle">
+                                    <img src={producto.prodServletUrl} alt="" />
+                                    <div className="info">
+                                        <div className="codigo">
+                                            <span>Codigo: {producto.prodCodigo}</span>
+                                        </div>
+                                        <div className="precio">
+                                            <span >$ {producto.prodCostoPreferencial}</span>
+                                        </div>
+                                        <div className="button">
+                                            <IonButton onClick={() => agregarCarrito(producto)}>
+                                                <IonIcon icon={cartOutline} />
+                                                <IonLabel>Agregar</IonLabel>
+                                            </IonButton>
 
-
-                {productos.map((producto, index) => (
-                    <IonCard key={index} className="card">
-                        <div className="producto">
-                            <div className="titulo"><span>{producto.prodNombre}</span></div>
-                            <div className="detalle">
-                                <img src={zapatos} alt="" />
-                                <div className="info">
-                                    <div className="codigo">
-                                        <span>Codigo: {producto.prodCodigo}</span>
-                                    </div>
-                                    <div className="precio">
-                                        <span >$ {producto.prodCostoPreferencial}</span>
-                                    </div>
-                                    <div className="button">
-                                        <IonButton onClick={() => agregarCarrito(producto)}>
-                                            <IonIcon icon={cartOutline} />
-                                            <IonLabel>Agregar</IonLabel>
-                                        </IonButton>
-                                        {/* <IonButton onClick={imprimirCarrito}>
+                                            {/* <IonButton onClick={imprimirCarrito}>
                                             <IonIcon icon={cartOutline} />
                                             <IonLabel>verCarrito</IonLabel>
                                         </IonButton> */}
+                                        </div>
                                     </div>
+
                                 </div>
-
                             </div>
-                        </div>
-                    </IonCard>
-                ))}
 
+                        </IonCard>
+                    ))}
+                </div>
 
 
 

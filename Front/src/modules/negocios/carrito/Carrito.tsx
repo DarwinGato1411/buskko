@@ -3,16 +3,14 @@ import zapatos from './assets/img/descarga.jpg'
 import './styles/Carrito.scss'
 
 import { useHistory } from "react-router";
-import { NavLink } from "react-router-dom";
 import { handLeftSharp, documentTextSharp, addCircle, removeCircle } from "ionicons/icons";
 import { useEffect, useState } from "react";
 
 import { DetalleFactura, Factura, FacturaAll } from "../interfaces/Factura";
 import { crearFactura } from "../../../api/Factura";
 import { Producto } from "../interfaces/producto";
-
-
-
+import { SocialSharing } from '@ionic-native/social-sharing';
+import Swal from "sweetalert2";
 
 
 const CarritoPage: React.FC = () => {
@@ -77,13 +75,9 @@ const CarritoPage: React.FC = () => {
     };
 
 
-    const irCarrito = () => {
-        history.push('/tienda/negocio/carrito');
-    }
 
-    const imprimirCarrito = () => {
-        console.log(carrito)
-    }
+
+
 
     const armarFactura = () => {
         let detalleFactura: DetalleFactura[] = []
@@ -131,16 +125,48 @@ const CarritoPage: React.FC = () => {
             detalleFactura.push(detalleFacturaProducto)
         });
 
-        factura.cod_tipoambiente=carrito[0].codTipoambiente
+        factura.cod_tipoambiente = carrito[0].codTipoambiente
 
         let facturaAll: FacturaAll = {
             detalleFactura, factura
         }
 
         crearFactura(facturaAll)
-        console.log(facturaAll)
-        console.log(JSON.stringify(facturaAll))
     }
+
+
+    const numeroTelefono = '593989383795';
+    const mensaje = '¡Hola! ¿En qué puedo ayudarte?';
+
+    const abrirWhatsAppNavegador = () => {
+        const url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(JSON.stringify(carrito))}`;
+        window.open(url, '_blank');
+    };
+
+    const shareViaWhatsApp = () => {
+        // Define el mensaje que deseas compartir
+        const message = '¡Hola desde mi aplicación Ionic con React!';
+
+        // Usa el método shareViaWhatsApp para compartir el mensaje en WhatsApp
+        SocialSharing.shareViaWhatsApp(message).then(() => {
+            console.log('Mensaje compartido en WhatsApp con éxito');
+            Swal.fire({
+                icon: 'success',
+                title: 'Atención!',
+                text: 'Mensaje compartido en WhatsApp con éxito',
+                timer: 1000
+            });
+        }).catch((error) => {
+            console.error('Error al compartir en WhatsApp:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Mensaje no enviado!',
+                text: error,
+                timer: 1000
+            });
+        });
+    };
+
 
     useEffect(() => {
 
@@ -171,17 +197,19 @@ const CarritoPage: React.FC = () => {
                         <span className="numero">$150</span>
                     </div>
                     <div className="botonera">
-                        <NavLink className="boton" to="/tienda/negocio/productos"> {/* Usa Link en lugar de <a> */}
+                        <span onClick={armarFactura} className="boton"> {/* Usa Link en lugar de <a> */}
                             <IonIcon style={{ color: "red" }} icon={documentTextSharp} />
                             <IonLabel >PDF</IonLabel>
-                        </NavLink>
-                        <NavLink className="boton" to="/tienda/negocio/productos"> {/* Usa Link en lugar de <a> */}
+                        </span>
+                        <span className="boton" onClick={shareViaWhatsApp}> {/* Usa Link en lugar de <a> */}
                             <IonIcon style={{ color: "green" }} icon={handLeftSharp} />
-                            <IonLabel>Acordar con el vendedor</IonLabel>
+                            <IonLabel>WhatsApp app</IonLabel>
+                        </span>
 
-                        </NavLink>
-
-                        <IonButton onClick={armarFactura}>Armar Factura</IonButton>
+                        <span className="boton" onClick={abrirWhatsAppNavegador}> {/* Usa Link en lugar de <a> */}
+                            <IonIcon style={{ color: "green" }} icon={handLeftSharp} />
+                            <IonLabel>WhatsApp navegador</IonLabel>
+                        </span>
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IonPage, IonContent, IonInput, IonButton, IonIcon } from '@ionic/react';
 import '../styles/Login.scss'
 import { personCircleOutline, keyOutline } from 'ionicons/icons';
-import buskkoLogo from '../assets/img/BUSKKO.png'
+import buskkoLogo from '../assets/img/1.png'
 import { Redirect, useHistory } from 'react-router-dom';
 import { loginCliente } from '../api/Usuario'
 import Swal from 'sweetalert2';
@@ -62,9 +62,20 @@ const LoginPage: React.FC = () => {
 
             } else {
                 console.error('Error en la solicitud:', respuesta.status);
+                Swal.fire(
+                    'Atención',
+                    'El usuario no está registrado'+ respuesta.status,
+                    'error'
+                )
             }
         } catch (error: any) {
             console.error('Error al iniciar sesión:', error.message);
+            Swal.fire(
+                'Atención',
+                'El usuario no está registrado'+ error.message,
+                'error'
+            )
+            
         }
     };
 
@@ -79,44 +90,60 @@ const LoginPage: React.FC = () => {
     return (
         <IonPage>
             <IonContent className='paginaContenido'>
+
+                <div className='fondoLogo'>
+                    <div className='contenidoLogo'>
+
+                        <div className='fondoLogo'>
+                            {/* <img className='img' src="https://tutiendaecuador.com/wp-content/uploads/2021/05/paradas-neuromarketing-supermercados.jpg" alt="Tu imagen" /> */}
+
+                        </div>
+                        <div className='centrar'>
+                            <div className='logo'>
+                                <div className='contenidoLogo'>
+                                    <img src={buskkoLogo} alt="" />
+                                    <span>Bienvenido de vuelta</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className='contenedorLogin'>
                     <div className='as'>
-                        <div className='contenidoLogo'>
-                            <img className='logo' src={buskkoLogo} alt="" />
-                            {/* <div>
-                                <p>Buskko</p>
-                                <p>Todo en un solo lugar</p>
-                            </div> */}
-                        </div>
-                        <div className='contenedorInputs'>
-                            <div className='contenidoInput'>
-                                <IonIcon icon={personCircleOutline} className='icon' />
-                                <IonInput
-                                    type="email"
-                                    placeholder="Correo Electrónico"
-                                    value={userName}
-                                    onIonChange={(e) => setUserName(e.detail.value!)}
+                        <div className='formulario'>
+                            <div className='contenedorInputs'>
+                                <div className='contenidoInput'>
+                                    <IonIcon icon={personCircleOutline} className='icon' />
+                                    <IonInput
+                                        type="email"
+                                        placeholder="Correo Electrónico"
+                                        value={userName}
+                                        onIonChange={(e) => setUserName(e.detail.value!)}
 
-                                ></IonInput>
+                                    ></IonInput>
+                                </div>
+                                <div className='contenidoInput'>
+                                    <IonIcon icon={keyOutline} className='icon' />
+                                    <IonInput
+                                        type="password"
+                                        placeholder="Contraseña"
+                                        value={password}
+                                        onIonChange={(e) => setPassword(e.detail.value!)}
+                                    ></IonInput>
+                                </div>
                             </div>
-                            <div className='contenidoInput'>
-                                <IonIcon icon={keyOutline} className='icon' />
-                                <IonInput
-                                    type="password"
-                                    placeholder="Contraseña"
-                                    value={password}
-                                    onIonChange={(e) => setPassword(e.detail.value!)}
-                                ></IonInput>
+                            <div className='botonera'>
+
+                                <button className='btn login' onClick={handleLogin}>
+                                    Iniciar Sesión
+                                </button>
+                                <p className="registro">
+                                    No estas Registrado? <a onClick={handleNavigate} >Registrate ahora</a>
+                                </p>
+
                             </div>
                         </div>
-                        <IonButton expand="full" onClick={handleLogin}>
-                            Iniciar Sesión
-                        </IonButton>
-                        <br />
-                        <p className="text--center">
-                            No estas Registrado? <a onClick={handleNavigate} >Registrate ahora</a>
-
-                        </p>
                     </div>
 
                 </div>

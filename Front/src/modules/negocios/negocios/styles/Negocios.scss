@@ -1,59 +1,78 @@
 .pageNegocio {
-    .negocio {
-        color: black;
-        background-color: white;
-        padding: 10px;
-        border-radius: 10px;
-
-        .titulo {
-            padding: 10px;
-            font-weight: bold;
+    .busqueda {
+        
+        background-color: transparent;
+        position: fixed;
+        padding: 5px;
+        width: 100%;
+        z-index: 10;
+        input{
+            width: 100%;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
         }
+    }
 
-        .detalle {
-            display: grid;
-            grid-template-columns: 50% 50%;
+    .listaNegocios {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        .card {
+            margin: 0;
+            padding: 7px;
 
-            img {
-                display: block;
-                height: 100px;
-                margin: auto;
+            .negocio {
+                color: black;
+                background-color: white;
                 border-radius: 10px;
-            }
+                height: 100%;
+                width: 100%;
 
-            .info {
-                padding: 0 10px 10px 10px;
 
-                .titulo {
-                    span {
-                        display: block;
-                        font-size: 16px;
+                .detalle {
+                    display: grid;
+                    padding: 0 10px 10px 10px;
+
+                    .titulo {
+                        margin: 10px 0 0 0;
+                        font-weight: bold;
+                        font-size: 13px;
+                    }
+
+                    .info {
+                        .titulo {
+                            span {
+                                display: block;
+                                font-size: 13px;
+                            }
+                        }
+
                     }
                 }
 
-            }
-        }
+                .footer {
+                    display: grid;
 
-        .footer {
-            padding: 10px;
-            display: grid;
+                    .direccion {
+                        margin-bottom: 5px;
 
-            .direccion {
+                        span {
+                            color: #757575;
+                            font-size: 12px;
+                        }
+                    }
 
-                margin-bottom: 5px;
-
-                span {
-                    color: #757575;
+                    .button {
+                        margin: 10px;
+                        padding: 10px;
+                        margin: 10px 10px 10px auto;
+                        border-radius: 10px;
+                        background-color: #004358;
+                        text-decoration: none;
+                        color: white;
+                    }
                 }
-            }
-
-            .button {
-                padding: 10px;
-                margin: 0 0 0 auto;
-                border-radius: 10px;
-                background-color: #004358;
-                text-decoration: none;
-                color: white;
             }
         }
     }

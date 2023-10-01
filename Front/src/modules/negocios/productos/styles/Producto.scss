@@ -1,77 +1,97 @@
 .productosPage {
+
+    .busqueda {
+
+        background-color: transparent;
+        position: fixed;
+        padding: 5px;
+        width: 100%;
+        z-index: 10;
+
+        input {
+            width: 100%;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+        }
+    }
+
     .productosContent {
         padding: 20px !important;
     }
 
-    .card {
-        margin-bottom: 22px;
+    .listaProductos {
+        margin-top: 50px;
+        .card {
+            margin-bottom: 22px;
 
-        .producto {
-            background-color: white;
-            border-radius: 10px;
+            .producto {
+                background-color: white;
+                border-radius: 10px;
 
-            .titulo {
-                padding: 10px;
-
-                span {
-                    font-size: 18px;
-                    font-weight: bold;
-                    display: block;
-                    //text-align: center;
-                }
-            }
-
-            .detalle {
-
-                display: grid;
-                grid-template-columns: 50% 50%;
-
-                img {
-
-                    height: 150px;
-                    margin: auto;
-                }
-
-                .info {
-
-                    padding: 5px;
+                .titulo {
                     padding: 10px;
+
+                    span {
+                        font-size: 18px;
+                        font-weight: bold;
+                        display: block;
+                        //text-align: center;
+                    }
+                }
+
+                .detalle {
+
                     display: grid;
-                    align-items: center;
+                    grid-template-columns: 50% 50%;
 
-                    .codigo {
-                        span {
-                            display: block;
+                    img {
 
-                            font-weight: bold;
-                        }
-                    }
-
-                    .precio {
-                        span {
-                            display: block;
-                            font-size: 34px;
-                            text-align: center;
-                            color: #838383;
-                        }
-                    }
-
-                    .button {
-                        padding: 10px;
+                        height: 150px;
                         margin: auto;
-                        border-radius: 10px;
-                        color: #004358;
-                        text-decoration: none;
-                        color: white;
-                        display: flex;
-                        gap: 5px;
+                    }
+
+                    .info {
+
+                        padding: 5px;
+                        padding: 10px;
+                        display: grid;
                         align-items: center;
 
-                        a {
+                        .codigo {
+                            span {
+                                display: block;
+
+                                font-weight: bold;
+                            }
+                        }
+
+                        .precio {
+                            span {
+                                display: block;
+                                font-size: 34px;
+                                text-align: center;
+                                color: #838383;
+                            }
+                        }
+
+                        .button {
+                            padding: 10px;
+                            margin: auto;
+                            border-radius: 10px;
+                            color: #004358;
                             text-decoration: none;
+                            color: white;
                             display: flex;
-                            align-items: center;
                             gap: 5px;
+                            align-items: center;
+
+                            a {
+                                text-decoration: none;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            }
                         }
                     }
                 }
