@@ -173,7 +173,7 @@ const CarritoPage: React.FC = () => {
         const carritoGuardado = localStorage.getItem('carrito');
         if (carritoGuardado) {
             setCarrito(JSON.parse(carritoGuardado));
-            console.log(carrito)
+            console.log("carrito",carrito)
         }
     }, [history.location.pathname]);
 
@@ -220,7 +220,8 @@ const CarritoPage: React.FC = () => {
                         <div className="producto">
 
                             <div className="detalle">
-                                <img src={zapatos} alt="" />
+                                <img src={producto.prodServletUrl} alt="" />
+
                                 <div className="info">
                                     <div className="titulo">
                                         <span>{producto.prodNombre}</span>
